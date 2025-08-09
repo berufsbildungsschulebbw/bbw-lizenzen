@@ -1,12 +1,930 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>General</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allgemeine Schullizenzen - BBW Lerntechnologie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ede9fe, #fce7f3, #ddd6fe);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+            color: var(--success);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #6b7280;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .tool-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .tool-functions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tool-function {
+            padding: 5px 12px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .tool-body {
+            padding: 30px;
+        }
+
+        .tool-description {
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tool-access {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .access-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .access-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .access-icon {
+            font-size: 1.2em;
+        }
+
+        .tool-details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .detail-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .tool-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .expand-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .expand-btn::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+
+        .expand-btn.expanded::after {
+            transform: rotate(180deg);
+        }
+
+        .tool-expanded {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .tool-expanded.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>General</h1>
-  <p>Inhalt für General…</p>
-  <a href="../index.html">Zurück zur Übersicht</a>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-bar">
+                <a href="../index.html" class="back-button">
+                    ← Zurück zur Übersicht
+                </a>
+                <div class="category-badge">
+                    🏫 Allgemeine Schullizenzen
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>Allgemeine Schullizenzen</h1>
+                <p>Diese Tools stehen allen Lehrpersonen und Lernenden zur Verfügung</p>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- OLAT -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🎓</div>
+                    <h3 class="tool-name">OLAT</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Lernplattform</span>
+                        <span class="tool-function">Tests</span>
+                        <span class="tool-function">Videoquiz</span>
+                        <span class="tool-function">Kollaboration</span>
+                        <span class="tool-function">Feedbacksystem</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">OLAT (Online Learning And Training) ist die zentrale Lernplattform der BBW für digitalen Unterricht und E-Learning.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullogin</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Schullogin</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Hauptfunktionen</h4>
+                            <ul>
+                                <li>Tests und Prüfungen online erstellen</li>
+                                <li>Videoquiz für interaktive Lerninhalte</li>
+                                <li>Feedback-basierte Lernpfade</li>
+                                <li>Formulare und Umfragen</li>
+                                <li>Blogs und Wikis für Kollaboration</li>
+                                <li>Integration externer Tools (Padlet, GitHub, LearningApps)</li>
+                                <li>SCORM-Support für Lumi Education</li>
+                                <li>Automatische Bewertungen und Notenübersicht</li>
+                            </ul>
+                        </div>
+                        <a href="https://olat.bbw.ch" target="_blank" class="tool-link">
+                            Zu OLAT →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- nanoo.tv -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📺</div>
+                    <h3 class="tool-name">nanoo.tv</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Medienarchiv</span>
+                        <span class="tool-function">Streaming</span>
+                        <span class="tool-function">Videoschnitt</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Schweizer Medienplattform für Bildungsinstitutionen mit rechtssicherem Zugang zu TV-Inhalten.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullogin</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Klassenlink</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Hauptfunktionen</h4>
+                            <ul>
+                                <li>Zugriff auf über 50 TV-Sender</li>
+                                <li>Videobearbeitung im Browser</li>
+                                <li>Erstellung von Playlists</li>
+                                <li>Integration in OLAT</li>
+                                <li>Rechtssichere Nutzung</li>
+                            </ul>
+                        </div>
+                        <a href="https://nanoo.tv" target="_blank" class="tool-link">
+                            Zu nanoo.tv →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Microsoft 365 -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">💼</div>
+                    <h3 class="tool-name">Microsoft 365</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Office-Programme</span>
+                        <span class="tool-function">Cloud-Speicher</span>
+                        <span class="tool-function">Kollaboration</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Komplette Office-Suite mit Word, Excel, PowerPoint, Teams und OneDrive für moderne Bildung.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullogin</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Schullogin</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Enthaltene Programme</h4>
+                            <ul>
+                                <li>Word, Excel, PowerPoint</li>
+                                <li>Teams für virtuelle Klassenzimmer</li>
+                                <li>OneNote als digitales Notizbuch</li>
+                                <li>OneDrive mit 1TB Speicher</li>
+                                <li>Forms für Umfragen und Tests</li>
+                                <li>Bis zu 5 Geräte pro Nutzer</li>
+                            </ul>
+                        </div>
+                        <a href="https://portal.office.com" target="_blank" class="tool-link">
+                            Zu Microsoft 365 →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adobe Creative Cloud -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🎨</div>
+                    <h3 class="tool-name">Adobe Creative Cloud</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Grafikdesign</span>
+                        <span class="tool-function">Videobearbeitung</span>
+                        <span class="tool-function">Webdesign</span>
+                        <span class="tool-function">Fotografie</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Professionelle Kreativ-Suite mit über 20 Apps für Design, Video, Web und Fotografie.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullogin</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Anfrage für TIKT/PIKT-Projekte</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Verfügbare Programme</h4>
+                            <ul>
+                                <li>Photoshop, Illustrator, InDesign</li>
+                                <li>Premiere Pro, After Effects</li>
+                                <li>Lightroom, XD</li>
+                                <li>100GB Cloud-Speicher</li>
+                                <li>Adobe Fonts und Stock Credits</li>
+                                <li>Temporäre Projektlizenzen für Lernende möglich</li>
+                            </ul>
+                        </div>
+                        <a href="https://creativecloud.adobe.com" target="_blank" class="tool-link">
+                            Zu Adobe CC →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fobizz -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🤖</div>
+                    <h3 class="tool-name">Fobizz</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">KI-Assistenz</span>
+                        <span class="tool-function">KI-Chatbot</span>
+                        <span class="tool-function">Textgenerierung</span>
+                        <span class="tool-function">Unterrichtsmaterial</span>
+                        <span class="tool-function">Fortbildung</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">KI-gestützte Unterrichtsplattform mit Multiple LLMs wie Claude, ChatGPT, Mistral und weitere.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullizenz-Link</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Code pro Lernende</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>KI-Funktionen</h4>
+                            <ul>
+                                <li>Multiple KI-Modelle (Claude, ChatGPT, Mistral, etc.)</li>
+                                <li>KI-Assistent für Unterrichtsmaterial</li>
+                                <li>Automatische Arbeitsblatt-Generierung</li>
+                                <li>Differenzierte Aufgaben erstellen</li>
+                                <li>KI-Bildgenerierung</li>
+                                <li>Fortbildungskurse</li>
+                            </ul>
+                        </div>
+                        <a href="https://fobizz.com" target="_blank" class="tool-link">
+                            Zu Fobizz →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- To-Teach.ai -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🧠</div>
+                    <h3 class="tool-name">To-Teach.ai</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">KI-Unterricht</span>
+                        <span class="tool-function">Personalisierung</span>
+                        <span class="tool-function">Differenzierung</span>
+                        <span class="tool-function">Arbeitsblätter</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">KI-basierte Plattform zur Erstellung personalisierter Lernmaterialien und differenzierter Aufgaben.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Fobizz-Konto</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Nur für Lehrpersonen</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Personalisierte Arbeitsblätter</li>
+                                <li>Adaptive Lernpfade</li>
+                                <li>Differenzierung nach Niveau</li>
+                                <li>Integration mit Fobizz</li>
+                                <li>Lernstandsanalyse</li>
+                                <li>Automatischer Zugriff über Fobizz-Account</li>
+                            </ul>
+                        </div>
+                        <a href="https://to-teach.ai" target="_blank" class="tool-link">
+                            Zu To-Teach.ai →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- findmind.ch -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🧩</div>
+                    <h3 class="tool-name">findmind.ch</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Mindmapping</span>
+                        <span class="tool-function">Kollaboration</span>
+                        <span class="tool-function">Visualisierung</span>
+                        <span class="tool-function">Projektplanung</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Schweizer Online-Tool für kollaboratives Mindmapping und visuelle Projektplanung.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Einzellizenz verfügbar</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Über Team-Konti möglich</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">📊</span>
+                            <span>1 Einzellizenz verfügbar</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Intuitive Mindmap-Erstellung</li>
+                                <li>Echtzeit-Kollaboration</li>
+                                <li>Export in verschiedene Formate</li>
+                                <li>Vorlagen für Unterricht</li>
+                                <li>Team-Konti für Klassen möglich</li>
+                            </ul>
+                        </div>
+                        <a href="https://findmind.ch" target="_blank" class="tool-link">
+                            Zu findmind.ch →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-Thek -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📚</div>
+                    <h3 class="tool-name">E-Thek</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">E-Books</span>
+                        <span class="tool-function">Hörbücher</span>
+                        <span class="tool-function">Digitale Medien</span>
+                        <span class="tool-function">Zeitschriften</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Digitale Bibliothek der BBW mit umfangreichem Medienangebot für Bildungszwecke.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullogin / Lernlounge</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Schullogin / Lernlounge</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Medienangebot</h4>
+                            <ul>
+                                <li>E-Books und digitale Lehrbücher</li>
+                                <li>Hörbücher und Podcasts</li>
+                                <li>Digitale Zeitschriften</li>
+                                <li>Fachzeitschriften</li>
+                                <li>Offline-Lesen möglich</li>
+                                <li>Onleihe-App für iOS und Android</li>
+                            </ul>
+                        </div>
+                        <a href="https://www.onleihe.net" target="_blank" class="tool-link">
+                            Zur E-Thek →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swissdox -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📰</div>
+                    <h3 class="tool-name">Swissdox</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Medienarchiv</span>
+                        <span class="tool-function">Recherche</span>
+                        <span class="tool-function">Zeitungsartikel</span>
+                        <span class="tool-function">Pressespiegel</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Führende Schweizer Mediendatenbank mit Zugriff auf aktuelle und archivierte Artikel.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per M365-Login</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per M365-Login</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Alle wichtigen Schweizer Medien</li>
+                                <li>Archiv bis in die 1990er Jahre</li>
+                                <li>Volltextsuche</li>
+                                <li>PDF-Export</li>
+                                <li>Themendossiers erstellen</li>
+                                <li>Automatische Weiterleitung nach M365-Login</li>
+                            </ul>
+                        </div>
+                        <a href="https://swissdox.ch" target="_blank" class="tool-link">
+                            Zu Swissdox →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statista -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-name">Statista</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Statistiken</span>
+                        <span class="tool-function">Infografiken</span>
+                        <span class="tool-function">Studien</span>
+                        <span class="tool-function">Marktdaten</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Führendes Statistik-Portal mit über 1 Million Statistiken aus 22.500 Quellen.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullogin</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Schullogin</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Über 1 Million Statistiken</li>
+                                <li>Aktuelle Studien und Reports</li>
+                                <li>Downloadbare Infografiken</li>
+                                <li>Branchenreports</li>
+                                <li>Exportfunktion für Präsentationen</li>
+                                <li>Campus-Zugang im BBW-Netzwerk oder per VPN</li>
+                            </ul>
+                        </div>
+                        <a href="https://statista.com" target="_blank" class="tool-link">
+                            Zu Statista →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clipchamp -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🎬</div>
+                    <h3 class="tool-name">Clipchamp</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Videobearbeitung</span>
+                        <span class="tool-function">Screenrecording</span>
+                        <span class="tool-function">KI-Features</span>
+                        <span class="tool-function">Export</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Microsoft Video-Editor mit KI-Funktionen, integriert in Microsoft 365.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Über M365-Account</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Über M365-Account</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Intuitive Videobearbeitung im Browser</li>
+                                <li>Bildschirmaufnahme und Webcam-Recording</li>
+                                <li>KI-gestützte Untertitel</li>
+                                <li>Vorlagen für verschiedene Formate</li>
+                                <li>Text-to-Speech in mehreren Sprachen</li>
+                                <li>Direkter Export zu OneDrive/SharePoint</li>
+                            </ul>
+                        </div>
+                        <a href="https://clipchamp.com" target="_blank" class="tool-link">
+                            Zu Clipchamp →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PDF Annotator -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-name">PDF Annotator</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">PDF-Bearbeitung</span>
+                        <span class="tool-function">Annotationen</span>
+                        <span class="tool-function">Handschrift</span>
+                        <span class="tool-function">Kollaboration</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Professionelle Software zur Bearbeitung und Kommentierung von PDF-Dokumenten.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Schullizenz</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Schullizenz</span>
+                        </div>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Handschriftliche Notizen auf PDFs</li>
+                                <li>Textmarkierungen und Kommentare</li>
+                                <li>Formen und Freihandzeichnungen</li>
+                                <li>Stempel und vordefinierte Anmerkungen</li>
+                                <li>Export mit oder ohne Annotationen</li>
+                                <li>Ideal für Tablet-PCs und Touchscreens</li>
+                            </ul>
+                        </div>
+                        <a href="https://www.pdfannotator.com" target="_blank" class="tool-link">
+                            Zu PDF Annotator →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const expandedDiv = btn.nextElementSibling;
+            const isExpanded = expandedDiv.classList.contains('show');
+            
+            // Close all other expanded sections
+            document.querySelectorAll('.tool-expanded.show').forEach(div => {
+                div.classList.remove('show');
+                div.previousElementSibling.classList.remove('expanded');
+            });
+            
+            // Toggle current section
+            if (!isExpanded) {
+                expandedDiv.classList.add('show');
+                btn.classList.add('expanded');
+            }
+        }
+
+        // Initialize animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
 </body>
 </html>
 
