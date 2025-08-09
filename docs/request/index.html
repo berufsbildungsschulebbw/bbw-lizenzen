@@ -1,1 +1,707 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schullizenzen per Antrag - BBW Lerntechnologie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ede9fe, #fce7f3, #ddd6fe);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #fed7aa, #fb923c);
+            color: var(--warning);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #6b7280;
+        }
+
+        .availability-notice {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .availability-notice .icon {
+            font-size: 2em;
+        }
+
+        .availability-notice .content h3 {
+            color: #92400e;
+            margin-bottom: 5px;
+        }
+
+        .availability-notice .content p {
+            color: #78350f;
+            line-height: 1.5;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .limited-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--warning);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .tool-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .tool-functions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tool-function {
+            padding: 5px 12px;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .tool-body {
+            padding: 30px;
+        }
+
+        .tool-description {
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tool-access {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .access-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .access-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .access-icon {
+            font-size: 1.2em;
+        }
+
+        .availability-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: #fef3c7;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .availability-item strong {
+            color: var(--warning);
+        }
+
+        .tool-details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .detail-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .tool-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .expand-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--warning), #ea580c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .expand-btn::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+
+        .expand-btn.expanded::after {
+            transform: rotate(180deg);
+        }
+
+        .tool-expanded {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .tool-expanded.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .request-info {
+            background: #fff7ed;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .request-info h5 {
+            color: #9a3412;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .request-info p {
+            color: #7c2d12;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-bar">
+                <a href="../index.html" class="back-button">
+                    ← Zurück zur Übersicht
+                </a>
+                <div class="category-badge">
+                    📋 Schullizenzen per Antrag
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>Schullizenzen per Antrag</h1>
+                <p>Diese Speziallizenzen sind in begrenzter Anzahl verfügbar</p>
+            </div>
+        </div>
+
+        <!-- Availability Notice -->
+        <div class="availability-notice">
+            <div class="icon">⚠️</div>
+            <div class="content">
+                <h3>Limitierte Verfügbarkeit</h3>
+                <p>Diese Lizenzen sind in begrenzter Anzahl vorhanden. Bitte kontaktieren Sie das IT-Support-Team frühzeitig für eine Anfrage. Die Vergabe erfolgt nach Verfügbarkeit und pädagogischem Bedarf.</p>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- Quizlet -->
+            <div class="tool-card">
+                <span class="limited-badge">5 Lizenzen</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🎯</div>
+                    <h3 class="tool-name">Quizlet</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Lernkarten</span>
+                        <span class="tool-function">Gamification</span>
+                        <span class="tool-function">Tests</span>
+                        <span class="tool-function">Live-Spiele</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Interaktive Lernplattform mit digitalen Karteikarten und spielerischen Elementen für effektives Lernen.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Einladungslink</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Selbstregistration + Klassencode</span>
+                        </div>
+                    </div>
+                    <div class="availability-item">
+                        <span>📊</span>
+                        <strong>Verfügbar:</strong> 5 Teacher Plus Lizenzen
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details & Anfrage
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Teacher Plus Funktionen</h4>
+                            <ul>
+                                <li>Digitale Karteikarten mit Bildern und Audio</li>
+                                <li>Adaptive Lernmodi mit KI-Unterstützung</li>
+                                <li>Live-Spiele für die ganze Klasse</li>
+                                <li>Automatische Testgenerierung</li>
+                                <li>Fortschrittsverfolgung für alle Lernenden</li>
+                                <li>Erweiterte Statistiken und Analysen</li>
+                                <li>Unbegrenzte Klassen und Lernsets</li>
+                            </ul>
+                        </div>
+                        <div class="request-info">
+                            <h5>📝 Antragsverfahren</h5>
+                            <p>1. Kontaktieren Sie das IT-Support-Team per E-Mail<br>
+                               2. Begründen Sie den pädagogischen Einsatz<br>
+                               3. Nach Genehmigung erhalten Sie einen Einladungslink<br>
+                               4. Lernende können sich kostenlos registrieren und per Klassencode beitreten</p>
+                        </div>
+                        <a href="https://quizlet.com" target="_blank" class="tool-link">
+                            Zu Quizlet →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actionbound -->
+            <div class="tool-card">
+                <span class="limited-badge">3 Lizenzen</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🗺️</div>
+                    <h3 class="tool-name">Actionbound</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Digitale Schnitzeljagd</span>
+                        <span class="tool-function">Outdoor-Learning</span>
+                        <span class="tool-function">GPS-Rallyes</span>
+                        <span class="tool-function">Gamification</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Interaktive Rallyes und Schnitzeljagden für spannendes, ortsbezogenes Lernen mit dem Smartphone.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Account-Einladung</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: App + QR-Code</span>
+                        </div>
+                    </div>
+                    <div class="availability-item">
+                        <span>📊</span>
+                        <strong>Verfügbar:</strong> 3 EDU-Lizenzen
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details & Anfrage
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>EDU-Lizenz Funktionen</h4>
+                            <ul>
+                                <li>GPS-basierte Aufgaben und Rätsel</li>
+                                <li>Multimedia-Inhalte (Videos, Audio, Bilder)</li>
+                                <li>QR-Code-Scanner Integration</li>
+                                <li>Offline-Modus verfügbar</li>
+                                <li>Punktesystem und Bestenlisten</li>
+                                <li>Unbegrenzte Bounds erstellen</li>
+                                <li>Detaillierte Auswertungen</li>
+                                <li>Team-Challenges möglich</li>
+                            </ul>
+                        </div>
+                        <div class="request-info">
+                            <h5>📝 Antragsverfahren</h5>
+                            <p>1. Anfrage für EDU-Lizenz beim IT-Support<br>
+                               2. Projektbeschreibung einreichen<br>
+                               3. Nach Freigabe: Account-Einladung erhalten<br>
+                               4. Bounds auf actionbound.com erstellen<br>
+                               5. Lernende laden kostenlose App und starten per QR-Code</p>
+                        </div>
+                        <a href="https://actionbound.com" target="_blank" class="tool-link">
+                            Zu Actionbound →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fellofish -->
+            <div class="tool-card">
+                <span class="limited-badge">2 Lizenzen</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🐟</div>
+                    <h3 class="tool-name">Fellofish</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Peer-Feedback</span>
+                        <span class="tool-function">Kollaboration</span>
+                        <span class="tool-function">Bewertung</span>
+                        <span class="tool-function">Reflexion</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Strukturiertes Peer-Feedback-Tool für kollaboratives Lernen und gegenseitige Bewertung.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Registrationslink</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Kurseinladung</span>
+                        </div>
+                    </div>
+                    <div class="availability-item">
+                        <span>📊</span>
+                        <strong>Verfügbar:</strong> 2 Schullizenzen
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details & Anfrage
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Hauptfunktionen</h4>
+                            <ul>
+                                <li>Strukturierte Feedback-Prozesse</li>
+                                <li>Anonyme und offene Bewertungen</li>
+                                <li>Rubrik-basierte Beurteilung</li>
+                                <li>Reflexionstools für Lernende</li>
+                                <li>Lernfortschritt-Visualisierung</li>
+                                <li>Peer-Review-Workflows</li>
+                                <li>Selbstbewertung integriert</li>
+                                <li>Export der Bewertungen</li>
+                            </ul>
+                        </div>
+                        <div class="request-info">
+                            <h5>📝 Antragsverfahren</h5>
+                            <p>1. Frühzeitig anfragen (nur 2 Lizenzen verfügbar!)<br>
+                               2. Einsatzkonzept beim IT-Support einreichen<br>
+                               3. Bei Zusage: Registrierung über bereitgestellten Link<br>
+                               4. Kurse anlegen und konfigurieren<br>
+                               5. Lernende per E-Mail zum Kurs einladen</p>
+                        </div>
+                        <a href="https://fellofish.com" target="_blank" class="tool-link">
+                            Zu Fellofish →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Synthesia -->
+            <div class="tool-card">
+                <span class="limited-badge">1 Lizenz</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🎭</div>
+                    <h3 class="tool-name">Synthesia</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">KI-Videos</span>
+                        <span class="tool-function">Avatar-Präsentation</span>
+                        <span class="tool-function">Mehrsprachigkeit</span>
+                        <span class="tool-function">Videoerstellung</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">KI-gestützte Videoerstellung mit Avataren - professionelle Videos ohne Kamera oder Mikrofon.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Per Anfrage zum Testen</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Nicht direkt</span>
+                        </div>
+                    </div>
+                    <div class="availability-item">
+                        <span>📊</span>
+                        <strong>Verfügbar:</strong> 1 Einzellizenz (Testweise)
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details & Anfrage
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Premium-Funktionen</h4>
+                            <ul>
+                                <li>Über 140 KI-Avatare zur Auswahl</li>
+                                <li>Text-zu-Video in 120+ Sprachen</li>
+                                <li>Professionelle Videovorlagen</li>
+                                <li>Eigene Avatare erstellbar</li>
+                                <li>Automatische Untertitel-Generierung</li>
+                                <li>MP4-Export in Full HD</li>
+                                <li>Screen Recording Integration</li>
+                                <li>Custom Branding möglich</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Ideal für</h4>
+                            <ul>
+                                <li>Erklärvideos und Tutorials</li>
+                                <li>Mehrsprachige Lerninhalte</li>
+                                <li>Präsentationen ohne Kamerascheu</li>
+                                <li>Barrierefreie Bildungsinhalte</li>
+                                <li>Flipped Classroom Videos</li>
+                            </ul>
+                        </div>
+                        <div class="request-info">
+                            <h5>📝 Test-Anfrage</h5>
+                            <p>1. Einzellizenz kann per Anfrage getestet werden<br>
+                               2. Projektidee beim IT-Support vorstellen<br>
+                               3. Testdauer nach Absprache (z.B. 1 Monat)<br>
+                               4. Feedback zur Nutzung erwünscht<br>
+                               5. Bei Erfolg: Antrag auf dauerhafte Lizenz möglich</p>
+                        </div>
+                        <a href="https://www.synthesia.io" target="_blank" class="tool-link">
+                            Zu Synthesia →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const expandedDiv = btn.nextElementSibling;
+            const isExpanded = expandedDiv.classList.contains('show');
+            
+            // Close all other expanded sections
+            document.querySelectorAll('.tool-expanded.show').forEach(div => {
+                div.classList.remove('show');
+                div.previousElementSibling.classList.remove('expanded');
+            });
+            
+            // Toggle current section
+            if (!isExpanded) {
+                expandedDiv.classList.add('show');
+                btn.classList.add('expanded');
+            }
+        }
+
+        // Initialize animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
