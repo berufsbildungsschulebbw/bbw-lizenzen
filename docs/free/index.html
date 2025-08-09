@@ -1,1 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gratisangebote - BBW Lerntechnologie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --info-light: #60a5fa;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ede9fe, #fce7f3, #ddd6fe);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #bfdbfe, #60a5fa);
+            color: var(--info);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #6b7280;
+        }
+
+        .benefits-notice {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-left: 4px solid var(--info);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .benefits-notice .icon {
+            font-size: 2em;
+        }
+
+        .benefits-notice .content h3 {
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+
+        .benefits-notice .content p {
+            color: #1e3a8a;
+            line-height: 1.5;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .free-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .edu-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--info), #2563eb);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .tool-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .tool-functions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tool-function {
+            padding: 5px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .tool-body {
+            padding: 30px;
+        }
+
+        .tool-description {
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tool-access {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .access-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .access-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .access-icon {
+            font-size: 1.2em;
+        }
+
+        .free-features {
+            background: #f0f9ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .free-features h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .free-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .free-features li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #0c4a6e;
+            font-size: 0.9em;
+        }
+
+        .free-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .expand-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--info), var(--info-light));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .expand-btn::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+
+        .expand-btn.expanded::after {
+            transform: rotate(180deg);
+        }
+
+        .tool-expanded {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .tool-expanded.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .detail-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .tool-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .registration-info {
+            background: #ecfdf5;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .registration-info h5 {
+            color: #065f46;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .registration-info p {
+            color: #064e3b;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-bar">
+                <a href="../index.html" class="back-button">
+                    ← Zurück zur Übersicht
+                </a>
+                <div class="category-badge">
+                    🎁 Gratisangebote
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>Gratisangebote</h1>
+                <p>Kostenlose Tools und Open-Source-Lösungen für den Bildungsbereich</p>
+            </div>
+        </div>
+
+        <!-- Benefits Notice -->
+        <div class="benefits-notice">
+            <div class="icon">💡</div>
+            <div class="content">
+                <h3>Kostenlos für Bildung</h3>
+                <p>Diese Tools bieten kostenlose Versionen oder spezielle Education-Angebote für Schulen. Einige erfordern eine Registrierung mit der Schul-E-Mail-Adresse für erweiterte Funktionen.</p>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- Lumi Education -->
+            <div class="tool-card">
+                <span class="free-badge">100% Kostenlos</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🎮</div>
+                    <h3 class="tool-name">Lumi Education</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Interaktive Inhalte</span>
+                        <span class="tool-function">H5P-Editor</span>
+                        <span class="tool-function">Offline-Nutzung</span>
+                        <span class="tool-function">SCORM-Export</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Desktop-App für H5P-Inhalte - Erstellen Sie interaktive Lernmaterialien ohne Online-Plattform.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Kostenloser Download</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Kostenloser Download</span>
+                        </div>
+                    </div>
+                    <div class="free-features">
+                        <h4>Kostenlose Features</h4>
+                        <ul>
+                            <li>Vollversion ohne Einschränkungen</li>
+                            <li>Keine Registrierung erforderlich</li>
+                            <li>Unbegrenzte Projekte</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Hauptfunktionen</h4>
+                            <ul>
+                                <li>Offline H5P-Editor</li>
+                                <li>Über 40 interaktive Inhaltstypen</li>
+                                <li>SCORM-Export für OLAT</li>
+                                <li>HTML-Export für Websites</li>
+                                <li>Keine Cloud-Abhängigkeit</li>
+                                <li>Plattformunabhängig (Windows, Mac, Linux)</li>
+                                <li>Direkte Integration in OLAT möglich</li>
+                            </ul>
+                        </div>
+                        <div class="registration-info">
+                            <h5>🎯 Installation & Nutzung</h5>
+                            <p>1. Download von lumi.education<br>
+                               2. Installation ohne Admin-Rechte möglich<br>
+                               3. Sofort einsatzbereit<br>
+                               4. SCORM-Pakete direkt in OLAT hochladen</p>
+                        </div>
+                        <a href="https://lumi.education" target="_blank" class="tool-link">
+                            Zu Lumi Education →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LearningApps.org -->
+            <div class="tool-card">
+                <span class="free-badge">100% Kostenlos</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-name">LearningApps.org</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Interaktive Übungen</span>
+                        <span class="tool-function">Quiz-Erstellung</span>
+                        <span class="tool-function">Multimedia</span>
+                        <span class="tool-function">Gamification</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Web-Plattform zur Erstellung multimedialer Lernbausteine - Schweizer Non-Profit-Projekt.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Kostenlose Registrierung</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Ohne Registrierung nutzbar</span>
+                        </div>
+                    </div>
+                    <div class="free-features">
+                        <h4>Kostenlose Features</h4>
+                        <ul>
+                            <li>Alle Funktionen gratis</li>
+                            <li>Keine versteckten Kosten</li>
+                            <li>Werbefreie Plattform</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Verfügbare App-Typen</h4>
+                            <ul>
+                                <li>Über 20 verschiedene App-Vorlagen</li>
+                                <li>Kreuzworträtsel und Wortgitter</li>
+                                <li>Memory und Paare zuordnen</li>
+                                <li>Multiple-Choice und Lückentext</li>
+                                <li>Audio- und Video-Integration</li>
+                                <li>Millionenspiel und Pferderennen</li>
+                                <li>Zeitstrahl und Mindmap</li>
+                                <li>QR-Codes für mobilen Zugriff</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>OLAT-Integration</h4>
+                            <ul>
+                                <li>Direkte Einbindung per iFrame</li>
+                                <li>Link-Integration möglich</li>
+                                <li>Automatische Anpassung ans Layout</li>
+                                <li>Umfangreiche App-Sammlung verfügbar</li>
+                            </ul>
+                        </div>
+                        <div class="registration-info">
+                            <h5>🎯 Schnellstart</h5>
+                            <p>1. Kostenlose Registrierung für Lehrpersonen<br>
+                               2. Apps aus Vorlagen erstellen<br>
+                               3. Link oder QR-Code teilen<br>
+                               4. Lernende spielen ohne Anmeldung</p>
+                        </div>
+                        <a href="https://learningapps.org" target="_blank" class="tool-link">
+                            Zu LearningApps →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- simpleshow -->
+            <div class="tool-card">
+                <span class="edu-badge">Edu-Version</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🎬</div>
+                    <h3 class="tool-name">simpleshow</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Erklärvideo</span>
+                        <span class="tool-function">Animation</span>
+                        <span class="tool-function">Storytelling</span>
+                        <span class="tool-function">KI-Unterstützung</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Professionelle Erklärvideos einfach erstellen - mit KI-Unterstützung und Education-Angeboten.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Edu-Abo verfügbar</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Mit Lehrperson</span>
+                        </div>
+                    </div>
+                    <div class="free-features">
+                        <h4>Gratisversion</h4>
+                        <ul>
+                            <li>Basis-Features kostenlos</li>
+                            <li>3 Videos pro Monat</li>
+                            <li>Mit Wasserzeichen</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Edu-Abo Features</h4>
+                            <ul>
+                                <li>KI-gestützte Skripterstellung</li>
+                                <li>Automatische Visualisierung</li>
+                                <li>Professionelle Sprecher</li>
+                                <li>Verschiedene Stilvorlagen</li>
+                                <li>Export in HD-Qualität</li>
+                                <li>Unbegrenzte Videos</li>
+                                <li>Kein Wasserzeichen</li>
+                                <li>Team-Kollaboration</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Einsatzmöglichkeiten</h4>
+                            <ul>
+                                <li>Erklärvideos für komplexe Themen</li>
+                                <li>Präsentationen und Referate</li>
+                                <li>Flipped Classroom</li>
+                                <li>Projektdokumentationen</li>
+                                <li>Mehrsprachige Inhalte</li>
+                            </ul>
+                        </div>
+                        <div class="registration-info">
+                            <h5>🎯 Education-Angebot</h5>
+                            <p>1. Kostenlose Basis-Version testen<br>
+                               2. Edu-Abo für Schulen verfügbar<br>
+                               3. Spezielle Konditionen für Bildung<br>
+                               4. Support und Schulungen inklusive</p>
+                        </div>
+                        <a href="https://simpleshow.com" target="_blank" class="tool-link">
+                            Zu simpleshow →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canva for Education -->
+            <div class="tool-card">
+                <span class="free-badge">Education Free</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🎨</div>
+                    <h3 class="tool-name">Canva for Education</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Grafikdesign</span>
+                        <span class="tool-function">Präsentationen</span>
+                        <span class="tool-function">Videos</span>
+                        <span class="tool-function">Infografiken</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Professionelles Design-Tool - alle Premium-Funktionen kostenlos für Bildungseinrichtungen.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Selbstregistration mit Schul-Email</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Klasseneinladung</span>
+                        </div>
+                    </div>
+                    <div class="free-features">
+                        <h4>Education Features</h4>
+                        <ul>
+                            <li>Alle Pro-Features gratis</li>
+                            <li>Premium-Vorlagen</li>
+                            <li>Unbegrenzter Speicher</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Premium-Features (kostenlos für Bildung)</h4>
+                            <ul>
+                                <li>Millionen von Premium-Vorlagen</li>
+                                <li>Brand Kit für Schuldesign</li>
+                                <li>Video-Editor mit Effekten</li>
+                                <li>Hintergrundentferner</li>
+                                <li>Unbegrenzter Cloud-Speicher</li>
+                                <li>Premium-Schriften und Elemente</li>
+                                <li>Kollaborative Projekte in Echtzeit</li>
+                                <li>Klassenräume verwalten</li>
+                                <li>Aufgaben zuweisen und bewerten</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Projektideen</h4>
+                            <ul>
+                                <li>Poster und Infografiken</li>
+                                <li>Präsentationen und Referate</li>
+                                <li>Social Media Grafiken</li>
+                                <li>Arbeitsblätter gestalten</li>
+                                <li>Schulzeitungen und Newsletter</li>
+                                <li>Videos und Animationen</li>
+                                <li>Logos und Badges</li>
+                            </ul>
+                        </div>
+                        <div class="registration-info">
+                            <h5>🎯 Aktivierung</h5>
+                            <p>1. Registrierung auf canva.com/education<br>
+                               2. BBW-Email-Adresse verwenden<br>
+                               3. Automatische Verifizierung als Schule<br>
+                               4. Sofort alle Premium-Features nutzen<br>
+                               5. Lernende per Link einladen</p>
+                        </div>
+                        <a href="https://www.canva.com/education" target="_blank" class="tool-link">
+                            Zu Canva Education →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const expandedDiv = btn.nextElementSibling;
+            const isExpanded = expandedDiv.classList.contains('show');
+            
+            // Close all other expanded sections
+            document.querySelectorAll('.tool-expanded.show').forEach(div => {
+                div.classList.remove('show');
+                div.previousElementSibling.classList.remove('expanded');
+            });
+            
+            // Toggle current section
+            if (!isExpanded) {
+                expandedDiv.classList.add('show');
+                btn.classList.add('expanded');
+            }
+        }
+
+        // Initialize animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
