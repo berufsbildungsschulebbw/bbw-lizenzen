@@ -1,1 +1,868 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware & Geräte - BBW Lerntechnologie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --hardware: #14b8a6;
+            --hardware-light: #5eead4;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ede9fe, #fce7f3, #ddd6fe);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #99f6e4, #5eead4);
+            color: var(--hardware);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #6b7280;
+        }
+
+        .booking-notice {
+            background: linear-gradient(135deg, #ccfbf1, #99f6e4);
+            border-left: 4px solid var(--hardware);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .booking-notice .icon {
+            font-size: 2em;
+        }
+
+        .booking-notice .content h3 {
+            color: #0f766e;
+            margin-bottom: 5px;
+        }
+
+        .booking-notice .content p {
+            color: #134e4a;
+            line-height: 1.5;
+        }
+
+        /* Equipment Grid */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .equipment-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .availability-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--hardware), #0d9488);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .quantity-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .equipment-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        }
+
+        .equipment-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .equipment-name {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .equipment-functions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .equipment-function {
+            padding: 5px 12px;
+            background: rgba(20, 184, 166, 0.1);
+            color: var(--hardware);
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .equipment-body {
+            padding: 30px;
+        }
+
+        .equipment-description {
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .equipment-access {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .access-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .access-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .access-icon {
+            font-size: 1.2em;
+        }
+
+        .equipment-specs {
+            background: #f0fdfa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .equipment-specs h4 {
+            color: #0f766e;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .equipment-specs ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .equipment-specs li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #134e4a;
+            font-size: 0.9em;
+        }
+
+        .equipment-specs li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--hardware);
+            font-weight: bold;
+        }
+
+        .expand-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--hardware), var(--hardware-light));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(20, 184, 166, 0.3);
+        }
+
+        .expand-btn::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+
+        .expand-btn.expanded::after {
+            transform: rotate(180deg);
+        }
+
+        .equipment-expanded {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .equipment-expanded.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .detail-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .booking-info {
+            background: #ecfdf5;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .booking-info h5 {
+            color: #065f46;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .booking-info p {
+            color: #064e3b;
+            line-height: 1.5;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .contact-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-bar">
+                <a href="../index.html" class="back-button">
+                    ← Zurück zur Übersicht
+                </a>
+                <div class="category-badge">
+                    🛠️ Hardware & Geräte
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>Hardware & Geräte</h1>
+                <p>Ausleihbare Technologie für innovative Lehr- und Lernprojekte</p>
+            </div>
+        </div>
+
+        <!-- Booking Notice -->
+        <div class="booking-notice">
+            <div class="icon">📅</div>
+            <div class="content">
+                <h3>Reservierung erforderlich</h3>
+                <p>Alle Geräte müssen vorab reserviert werden. Kontaktieren Sie das Medienzentrum oder den IT-Support für Buchungen. Bei Erstnutzung ist eine Einweisung erforderlich.</p>
+            </div>
+        </div>
+
+        <!-- Equipment Grid -->
+        <div class="equipment-grid">
+            <!-- Mobiles Podcaststudio -->
+            <div class="equipment-card">
+                <span class="availability-badge">1 Set verfügbar</span>
+                <div class="equipment-header">
+                    <div class="equipment-icon">🎙️</div>
+                    <h3 class="equipment-name">Mobiles Podcaststudio</h3>
+                    <div class="equipment-functions">
+                        <span class="equipment-function">Audio-Aufnahme</span>
+                        <span class="equipment-function">Podcast-Produktion</span>
+                        <span class="equipment-function">Interview</span>
+                        <span class="equipment-function">Multimedia</span>
+                    </div>
+                </div>
+                <div class="equipment-body">
+                    <p class="equipment-description">Professionelles Audio-Equipment für hochwertige Podcasts, Interviews und Audio-Produktionen.</p>
+                    <div class="equipment-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Buchung über Medienzentrum</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Mit Lehrperson</span>
+                        </div>
+                    </div>
+                    <div class="equipment-specs">
+                        <h4>Ausstattung</h4>
+                        <ul>
+                            <li>Professionelles Mischpult</li>
+                            <li>4 hochwertige Mikrofone</li>
+                            <li>Kopfhörer-Set</li>
+                            <li>Mobile Aufnahmeeinheit</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Details & Buchung
+                    </button>
+                    <div class="equipment-expanded">
+                        <div class="detail-section">
+                            <h4>Technische Details</h4>
+                            <ul>
+                                <li>4-Kanal USB-Mischpult</li>
+                                <li>Dynamische Podcast-Mikrofone</li>
+                                <li>Pop-Schutz und Mikrofonstative</li>
+                                <li>Geschlossene Monitoring-Kopfhörer</li>
+                                <li>XLR-Kabel und Adapter</li>
+                                <li>Transportkoffer inklusive</li>
+                                <li>Aufnahme-Software vorinstalliert</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Einsatzmöglichkeiten</h4>
+                            <ul>
+                                <li>Schulpodcast-Produktion</li>
+                                <li>Interview-Projekte</li>
+                                <li>Hörspiele und Audio-Stories</li>
+                                <li>Sprachaufnahmen für Videos</li>
+                                <li>Musikaufnahmen</li>
+                            </ul>
+                        </div>
+                        <div class="booking-info">
+                            <h5>📋 Buchungsprozess</h5>
+                            <p>1. Anfrage beim Medienzentrum (min. 1 Woche vorher)<br>
+                               2. Einweisung bei Erstnutzung (ca. 30 Min.)<br>
+                               3. Ausleihdauer: Max. 2 Wochen<br>
+                               4. Verlängerung nach Absprache möglich<br>
+                               5. Rückgabe mit Vollständigkeitskontrolle</p>
+                        </div>
+                        <a href="mailto:medienzentrum@bbw.ch" class="contact-button">
+                            Medienzentrum kontaktieren →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VR-Brillen -->
+            <div class="equipment-card">
+                <span class="quantity-badge">~10 Geräte</span>
+                <div class="equipment-header">
+                    <div class="equipment-icon">🥽</div>
+                    <h3 class="equipment-name">VR-Brillen</h3>
+                    <div class="equipment-functions">
+                        <span class="equipment-function">Virtual Reality</span>
+                        <span class="equipment-function">Immersives Lernen</span>
+                        <span class="equipment-function">Sport</span>
+                        <span class="equipment-function">Projektunterricht</span>
+                    </div>
+                </div>
+                <div class="equipment-body">
+                    <p class="equipment-description">Meta Quest VR-Brillen für immersive Lernerfahrungen und innovative Unterrichtsprojekte.</p>
+                    <div class="equipment-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Buchung über IT-Support</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Im Klassenverband</span>
+                        </div>
+                    </div>
+                    <div class="equipment-specs">
+                        <h4>Verfügbar</h4>
+                        <ul>
+                            <li>Meta Quest VR-Brillen</li>
+                            <li>Vorinstallierte Bildungs-Apps</li>
+                            <li>Sport- & Fitness-Apps</li>
+                            <li>Klassensätze möglich</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Details & Buchung
+                    </button>
+                    <div class="equipment-expanded">
+                        <div class="detail-section">
+                            <h4>Technische Spezifikationen</h4>
+                            <ul>
+                                <li>Meta Quest 2/3 Headsets</li>
+                                <li>Wireless, kein PC erforderlich</li>
+                                <li>Hand-Tracking-Technologie</li>
+                                <li>6DOF (Degrees of Freedom)</li>
+                                <li>Hygiene-Masken inklusive</li>
+                                <li>Transportkoffer für Klassensätze</li>
+                                <li>Ladestation für mehrere Geräte</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Anwendungsbereiche</h4>
+                            <ul>
+                                <li>Virtuelle Exkursionen und Museumsbesuche</li>
+                                <li>3D-Modellierung und Design</li>
+                                <li>Anatomie und Biologie in 3D</li>
+                                <li>Geschichtliche Rekonstruktionen</li>
+                                <li>Sport- und Bewegungsübungen</li>
+                                <li>Sprachtraining in virtuellen Umgebungen</li>
+                                <li>Teambuilding-Aktivitäten</li>
+                            </ul>
+                        </div>
+                        <div class="booking-info">
+                            <h5>📋 Buchungsprozess</h5>
+                            <p>1. Reservierung über IT-Support<br>
+                               2. Angabe: Anzahl Geräte & Verwendungszweck<br>
+                               3. Sicherheitseinweisung obligatorisch<br>
+                               4. Ausleihe als Klassensatz möglich<br>
+                               5. Support bei technischen Fragen</p>
+                        </div>
+                        <a href="mailto:it-support@bbw.ch" class="contact-button">
+                            IT-Support kontaktieren →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zoom-Konferenzkamera -->
+            <div class="equipment-card">
+                <span class="availability-badge">1 Gerät</span>
+                <div class="equipment-header">
+                    <div class="equipment-icon">📹</div>
+                    <h3 class="equipment-name">Zoom-Konferenzkamera</h3>
+                    <div class="equipment-functions">
+                        <span class="equipment-function">Videokonferenz</span>
+                        <span class="equipment-function">Remote-Unterricht</span>
+                        <span class="equipment-function">Hybrid-Events</span>
+                        <span class="equipment-function">Streaming</span>
+                    </div>
+                </div>
+                <div class="equipment-body">
+                    <p class="equipment-description">Professionelle 4K-Konferenzkamera für hochwertige Remote-Sessions und Hybrid-Veranstaltungen.</p>
+                    <div class="equipment-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Buchung über IT-Support</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Nicht direkt</span>
+                        </div>
+                    </div>
+                    <div class="equipment-specs">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>4K-Videoqualität</li>
+                            <li>Automatische Sprecherverfolgung</li>
+                            <li>360-Grad-Erfassung möglich</li>
+                            <li>Plug-and-Play USB</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Details & Buchung
+                    </button>
+                    <div class="equipment-expanded">
+                        <div class="detail-section">
+                            <h4>Technische Details</h4>
+                            <ul>
+                                <li>4K Ultra-HD Auflösung</li>
+                                <li>KI-gestützte Sprecherverfolgung</li>
+                                <li>Automatischer Zoom und Framing</li>
+                                <li>Weitwinkel-Objektiv (120°)</li>
+                                <li>Integrierte Mikrofone mit Rauschunterdrückung</li>
+                                <li>USB 3.0 Anschluss</li>
+                                <li>Kompatibel mit Teams, Zoom, WebEx etc.</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Ideal für</h4>
+                            <ul>
+                                <li>Hybrid-Unterricht mit Remote-Teilnehmern</li>
+                                <li>Gastvorträge und Experteninterviews</li>
+                                <li>Schulkonferenzen und Elternabende</li>
+                                <li>Aufzeichnung von Unterrichtseinheiten</li>
+                                <li>Live-Streaming von Schulevents</li>
+                                <li>Internationale Schulpartnerschaften</li>
+                            </ul>
+                        </div>
+                        <div class="booking-info">
+                            <h5>📋 Buchungsprozess</h5>
+                            <p>1. Anfrage beim IT-Support mit Nutzungszeitraum<br>
+                               2. Setup-Unterstützung bei Erstnutzung<br>
+                               3. Testlauf vor wichtigen Events empfohlen<br>
+                               4. Technischer Support während Nutzung<br>
+                               5. Dokumentation und Anleitungen verfügbar</p>
+                        </div>
+                        <a href="mailto:it-support@bbw.ch" class="contact-button">
+                            IT-Support kontaktieren →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D-Drucker -->
+            <div class="equipment-card">
+                <span class="quantity-badge">Mehrere Geräte</span>
+                <div class="equipment-header">
+                    <div class="equipment-icon">🖨️</div>
+                    <h3 class="equipment-name">3D-Drucker</h3>
+                    <div class="equipment-functions">
+                        <span class="equipment-function">3D-Druck</span>
+                        <span class="equipment-function">Prototyping</span>
+                        <span class="equipment-function">MINT-Projekte</span>
+                        <span class="equipment-function">Design</span>
+                    </div>
+                </div>
+                <div class="equipment-body">
+                    <p class="equipment-description">Professionelle 3D-Drucker für die Umsetzung von Design-Ideen und technischen Projekten.</p>
+                    <div class="equipment-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Nach Einführungskurs</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Mit Betreuung</span>
+                        </div>
+                    </div>
+                    <div class="equipment-specs">
+                        <h4>Ausstattung</h4>
+                        <ul>
+                            <li>Verschiedene Druckermodelle</li>
+                            <li>PLA und PETG Filamente</li>
+                            <li>Druckbereich bis 20x20x20cm</li>
+                            <li>Nachbearbeitungsstation</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Details & Buchung
+                    </button>
+                    <div class="equipment-expanded">
+                        <div class="detail-section">
+                            <h4>Technische Spezifikationen</h4>
+                            <ul>
+                                <li>FDM-Drucktechnologie</li>
+                                <li>Schichtauflösung: 0.1-0.3mm</li>
+                                <li>Beheizte Druckplatte</li>
+                                <li>Automatische Kalibrierung</li>
+                                <li>PLA, PETG, TPU Materialien</li>
+                                <li>3D-Modellierungssoftware</li>
+                                <li>Slicing-Software vorinstalliert</li>
+                                <li>Nachbearbeitungswerkzeuge</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Projektmöglichkeiten</h4>
+                            <ul>
+                                <li>Architekturmodelle</li>
+                                <li>Technische Prototypen</li>
+                                <li>Molekülmodelle für Chemie</li>
+                                <li>Geometrische Körper für Mathematik</li>
+                                <li>Kunstprojekte und Skulpturen</li>
+                                <li>Ersatzteile und Werkzeuge</li>
+                                <li>Personalisierte Designs</li>
+                            </ul>
+                        </div>
+                        <div class="booking-info">
+                            <h5>📋 Nutzungsvoraussetzungen</h5>
+                            <p>1. Pflicht-Workshop für Lehrpersonen (3 Stunden)<br>
+                               2. Projektanmeldung über Online-Formular<br>
+                               3. 3D-Modell muss vorab geprüft werden<br>
+                               4. Basis-Filamente werden gestellt<br>
+                               5. Spezialfarben auf Anfrage<br>
+                               6. Druckzeit je nach Projekt 1-12 Stunden</p>
+                        </div>
+                        <a href="mailto:makerspace@bbw.ch" class="contact-button">
+                            Makerspace kontaktieren →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ChatGPT Pro Notebook -->
+            <div class="equipment-card">
+                <span class="availability-badge">1 Gerät</span>
+                <div class="equipment-header">
+                    <div class="equipment-icon">💻</div>
+                    <h3 class="equipment-name">ChatGPT Pro Notebook</h3>
+                    <div class="equipment-functions">
+                        <span class="equipment-function">KI-Assistenz</span>
+                        <span class="equipment-function">Fortgeschrittene KI</span>
+                        <span class="equipment-function">Unterrichtsvorbereitung</span>
+                        <span class="equipment-function">Projekte</span>
+                    </div>
+                </div>
+                <div class="equipment-body">
+                    <p class="equipment-description">Speziell konfiguriertes Notebook mit ChatGPT Pro für fortgeschrittene KI-Projekte.</p>
+                    <div class="equipment-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Buchung über IT-Support</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Nur mit Lehrperson</span>
+                        </div>
+                    </div>
+                    <div class="equipment-specs">
+                        <h4>Ausstattung</h4>
+                        <ul>
+                            <li>ChatGPT Pro Account</li>
+                            <li>GPT-4 Zugang</li>
+                            <li>Erweiterte KI-Tools</li>
+                            <li>Leistungsstarke Hardware</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Details & Buchung
+                    </button>
+                    <div class="equipment-expanded">
+                        <div class="detail-section">
+                            <h4>Hardware & Software</h4>
+                            <ul>
+                                <li>High-End Notebook (16GB RAM, SSD)</li>
+                                <li>ChatGPT Pro Account vorinstalliert</li>
+                                <li>Zugang zu GPT-4 und Plugins</li>
+                                <li>DALL-E 3 Bildgenerierung</li>
+                                <li>Code Interpreter</li>
+                                <li>Weitere KI-Tools (Claude, Midjourney)</li>
+                                <li>Sichere, schulkonforme Konfiguration</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Einsatzmöglichkeiten</h4>
+                            <ul>
+                                <li>Fortgeschrittene KI-Projekte</li>
+                                <li>Unterrichtsmaterial mit KI erstellen</li>
+                                <li>Programmierung mit KI-Unterstützung</li>
+                                <li>Bildgenerierung für Projekte</li>
+                                <li>Datenanalyse und Visualisierung</li>
+                                <li>Forschungsprojekte</li>
+                                <li>KI-Workshops und Demos</li>
+                            </ul>
+                        </div>
+                        <div class="booking-info">
+                            <h5>📋 Buchungsprozess</h5>
+                            <p>1. Anfrage mit Projektbeschreibung<br>
+                               2. Tageweise oder wochenweise Ausleihe<br>
+                               3. Einweisung in Datenschutz (30 Min.)<br>
+                               4. Keine persönlichen Daten verarbeiten<br>
+                               5. Dokumentation der Nutzung erforderlich</p>
+                        </div>
+                        <a href="mailto:it-support@bbw.ch" class="contact-button">
+                            IT-Support kontaktieren →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const expandedDiv = btn.nextElementSibling;
+            const isExpanded = expandedDiv.classList.contains('show');
+            
+            // Close all other expanded sections
+            document.querySelectorAll('.equipment-expanded.show').forEach(div => {
+                div.classList.remove('show');
+                div.previousElementSibling.classList.remove('expanded');
+            });
+            
+            // Toggle current section
+            if (!isExpanded) {
+                expandedDiv.classList.add('show');
+                btn.classList.add('expanded');
+            }
+        }
+
+        // Initialize animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
