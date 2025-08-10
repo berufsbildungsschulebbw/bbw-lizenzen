@@ -1,1 +1,1029 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empfehlenswerte Angebote - BBW Lerntechnologie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --recommended: #ec4899;
+            --recommended-light: #f9a8d4;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ede9fe, #fce7f3, #ddd6fe);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #fce7f3, #f9a8d4);
+            color: var(--recommended);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #6b7280;
+        }
+
+        .info-notice {
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            border-left: 4px solid var(--recommended);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .info-notice .icon {
+            font-size: 2em;
+        }
+
+        .info-notice .content h3 {
+            color: #be185d;
+            margin-bottom: 5px;
+        }
+
+        .info-notice .content p {
+            color: #9f1239;
+            line-height: 1.5;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .type-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--recommended), #db2777);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, var(--secondary), #7c3aed);
+        }
+
+        .bbw-badge {
+            background: linear-gradient(135deg, var(--success), #059669);
+        }
+
+        .tool-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .tool-functions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tool-function {
+            padding: 5px 12px;
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--recommended);
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .tool-body {
+            padding: 30px;
+        }
+
+        .tool-description {
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tool-access {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .access-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .access-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .access-icon {
+            font-size: 1.2em;
+        }
+
+        .pricing-info {
+            background: #fdf2f8;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .pricing-info h4 {
+            color: #be185d;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .pricing-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pricing-info li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #831843;
+            font-size: 0.9em;
+        }
+
+        .pricing-info li::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+        }
+
+        .expand-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--recommended), var(--recommended-light));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .expand-btn::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+
+        .expand-btn.expanded::after {
+            transform: rotate(180deg);
+        }
+
+        .tool-expanded {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .tool-expanded.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .detail-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .tool-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .recommendation-info {
+            background: #fff7ed;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .recommendation-info h5 {
+            color: #9a3412;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recommendation-info p {
+            color: #7c2d12;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-bar">
+                <a href="../index.html" class="back-button">
+                    ← Zurück zur Übersicht
+                </a>
+                <div class="category-badge">
+                    ⭐ Empfehlenswerte Angebote
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>Empfehlenswerte Angebote</h1>
+                <p>Diese Tools werden nicht durch die BBW finanziert, bieten aber nützliche Funktionen für den Unterricht</p>
+            </div>
+        </div>
+
+        <!-- Info Notice -->
+        <div class="info-notice">
+            <div class="icon">💡</div>
+            <div class="content">
+                <h3>Externe Tools mit Mehrwert</h3>
+                <p>Diese Tools bieten Gratisversionen oder spezielle Education-Angebote. Die BBW stellt keine Lizenzen zur Verfügung, empfiehlt aber die Nutzung für bestimmte Unterrichtszwecke. Eigene Registrierung erforderlich.</p>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- Padlet -->
+            <div class="tool-card">
+                <span class="type-badge">Gratis-Basis</span>
+                <div class="tool-header">
+                    <div class="tool-icon">📌</div>
+                    <h3 class="tool-name">Padlet</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Digitale Pinnwand</span>
+                        <span class="tool-function">Kollaboration</span>
+                        <span class="tool-function">Brainstorming</span>
+                        <span class="tool-function">Portfolio</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Virtuelle Pinnwand für kollaboratives Arbeiten - ideal für Ideensammlungen und digitale Portfolios.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Selbstregistration (3 Padlets gratis)</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Padlet-Link ohne Account</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>Kostenlose Version</h4>
+                        <ul>
+                            <li>3 Padlets gleichzeitig</li>
+                            <li>Unbegrenzte Teilnehmer</li>
+                            <li>Alle Grundfunktionen</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Verschiedene Layouts (Wand, Timeline, Map, Canvas)</li>
+                                <li>Multimedia-Posts (Text, Bilder, Videos, Audio)</li>
+                                <li>Echtzeit-Kollaboration</li>
+                                <li>Kommentar- und Like-Funktionen</li>
+                                <li>Export als PDF, Bild oder Excel</li>
+                                <li>QR-Code für schnellen Zugriff</li>
+                                <li>Privatsphäre-Einstellungen</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Einsatzmöglichkeiten</h4>
+                            <ul>
+                                <li>Brainstorming und Ideensammlung</li>
+                                <li>Digitale Portfolios</li>
+                                <li>Feedback-Wände</li>
+                                <li>Projektdokumentation</li>
+                                <li>Virtuelle Ausstellungen</li>
+                            </ul>
+                        </div>
+                        <div class="recommendation-info">
+                            <h5>⭐ BBW-Empfehlung</h5>
+                            <p>Padlet kann direkt in OLAT eingebunden werden! Erstellen Sie Ihr Padlet und fügen Sie es per iFrame in OLAT ein. Ideal für interaktive Gruppenarbeiten.</p>
+                        </div>
+                        <a href="https://padlet.com" target="_blank" class="tool-link">
+                            Zu Padlet →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentimeter -->
+            <div class="tool-card">
+                <span class="type-badge">Gratis-Basis</span>
+                <div class="tool-header">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-name">Mentimeter</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Live-Umfragen</span>
+                        <span class="tool-function">Interaktive Präsentationen</span>
+                        <span class="tool-function">Quiz</span>
+                        <span class="tool-function">Wordclouds</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Interaktive Präsentationen mit Live-Umfragen - perfekt für aktive Teilnahme im Unterricht.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Gratis-Account (2 Fragen/Präsentation)</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Code/QR ohne Account</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>Kostenlose Version</h4>
+                        <ul>
+                            <li>2 Fragen pro Präsentation</li>
+                            <li>Unbegrenzte Teilnehmer</li>
+                            <li>Alle Fragetypen verfügbar</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Verfügbare Interaktionen</h4>
+                            <ul>
+                                <li>Multiple Choice Fragen</li>
+                                <li>Wordclouds in Echtzeit</li>
+                                <li>Offene Fragen</li>
+                                <li>Quiz mit Ranglisten</li>
+                                <li>Skalen und Rankings</li>
+                                <li>Q&A-Sessions</li>
+                                <li>Bildauswahl</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Unterrichtseinsatz</h4>
+                            <ul>
+                                <li>Aktivierung zu Stundenbeginn</li>
+                                <li>Wissensabfragen</li>
+                                <li>Meinungsbilder erstellen</li>
+                                <li>Feedback einholen</li>
+                                <li>Anonyme Fragerunden</li>
+                            </ul>
+                        </div>
+                        <div class="recommendation-info">
+                            <h5>⭐ Tipp für Lehrpersonen</h5>
+                            <p>Nutzen Sie die 2 kostenlosen Fragen strategisch: Eine für die Aktivierung, eine für die Lernkontrolle. Erstellen Sie mehrere Accounts für verschiedene Klassen.</p>
+                        </div>
+                        <a href="https://www.mentimeter.com" target="_blank" class="tool-link">
+                            Zu Mentimeter →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Le Chat (Mistral) -->
+            <div class="tool-card">
+                <span class="ai-badge">KI-Tool</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🗨️</div>
+                    <h3 class="tool-name">Le Chat (Mistral)</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">KI-Chat</span>
+                        <span class="tool-function">Markdown-Erstellung</span>
+                        <span class="tool-function">Textgenerierung</span>
+                        <span class="tool-function">Programmierung</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Französischer KI-Assistent - besonders stark in Markdown und technischen Aufgaben.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Kostenlose Registrierung</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Kostenlose Registrierung</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>Kostenlose Features</h4>
+                        <ul>
+                            <li>Vollständiger KI-Zugang</li>
+                            <li>Keine Nutzungslimits</li>
+                            <li>Markdown-Spezialist</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Stärken</h4>
+                            <ul>
+                                <li>Exzellente Markdown-Formatierung</li>
+                                <li>Code-Generierung und -Erklärung</li>
+                                <li>Mehrsprachige Unterstützung</li>
+                                <li>Technische Dokumentation</li>
+                                <li>LaTeX-Unterstützung</li>
+                                <li>Wissenschaftliches Schreiben</li>
+                                <li>Europäische Datenschutz-Standards</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Ideal für</h4>
+                            <ul>
+                                <li>MINT-Fächer</li>
+                                <li>Programmier-Unterricht</li>
+                                <li>Technische Dokumentationen</li>
+                                <li>Wissenschaftliche Arbeiten</li>
+                                <li>Mathematische Formeln</li>
+                            </ul>
+                        </div>
+                        <a href="https://chat.mistral.ai" target="_blank" class="tool-link">
+                            Zu Le Chat →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Claude (Anthropic) -->
+            <div class="tool-card">
+                <span class="ai-badge">KI-Tool</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🤖</div>
+                    <h3 class="tool-name">Claude (Anthropic)</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">KI-Assistenz</span>
+                        <span class="tool-function">Artefakte erstellen</span>
+                        <span class="tool-function">Analyse</span>
+                        <span class="tool-function">Kreatives Schreiben</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Fortschrittlicher KI-Assistent mit einzigartiger Fähigkeit, interaktive Artefakte zu erstellen.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Kostenlose Basisversion</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Kostenlose Basisversion</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>Kostenlose Features</h4>
+                        <ul>
+                            <li>Basis-KI-Funktionen</li>
+                            <li>Artefakte-Erstellung</li>
+                            <li>Tägliches Limit</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Besondere Features</h4>
+                            <ul>
+                                <li>Erstellung von HTML/CSS/JS-Artefakten</li>
+                                <li>Interaktive Visualisierungen</li>
+                                <li>Komplexe Analysen</li>
+                                <li>Kreatives und akademisches Schreiben</li>
+                                <li>Ethische KI-Prinzipien</li>
+                                <li>Sehr lange Kontextfenster</li>
+                                <li>Detaillierte Erklärungen</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Unterrichtseinsatz</h4>
+                            <ul>
+                                <li>Interaktive Web-Apps erstellen</li>
+                                <li>Datenvisualisierungen</li>
+                                <li>Komplexe Analysen</li>
+                                <li>Kreatives Schreiben fördern</li>
+                                <li>Ethik-Diskussionen über KI</li>
+                            </ul>
+                        </div>
+                        <div class="recommendation-info">
+                            <h5>⭐ GitHub-Integration</h5>
+                            <p>Claude-generierte HTML-Artefakte können über GitHub Pages gehostet und direkt in OLAT eingebunden werden!</p>
+                        </div>
+                        <a href="https://claude.ai" target="_blank" class="tool-link">
+                            Zu Claude →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub -->
+            <div class="tool-card">
+                <span class="bbw-badge">BBW registriert</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🐙</div>
+                    <h3 class="tool-name">GitHub</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Code-Hosting</span>
+                        <span class="tool-function">Versionskontrolle</span>
+                        <span class="tool-function">Kollaboration</span>
+                        <span class="tool-function">GitHub Pages</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Code-Plattform mit kostenlosen Hosting-Möglichkeiten - BBW ist als Organisation registriert.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: BBW ist registriert</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Kostenlose Registrierung</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>BBW-Vorteile</h4>
+                        <ul>
+                            <li>Organisation bereits registriert</li>
+                            <li>GitHub Education Benefits</li>
+                            <li>Unbegrenzte Repositories</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Features</h4>
+                            <ul>
+                                <li>Unbegrenzte öffentliche Repositories</li>
+                                <li>GitHub Pages für HTML-Hosting</li>
+                                <li>Direkte Integration in OLAT möglich</li>
+                                <li>Versionskontrolle für Projekte</li>
+                                <li>GitHub Education Benefits</li>
+                                <li>Actions für Automatisierung</li>
+                                <li>Kollaborative Entwicklung</li>
+                                <li>Issue-Tracking</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>OLAT-Integration</h4>
+                            <ul>
+                                <li>HTML-Seiten über GitHub Pages hosten</li>
+                                <li>URL direkt in OLAT einbinden</li>
+                                <li>Interaktive Web-Projekte publizieren</li>
+                                <li>Claude/KI-Artefakte online stellen</li>
+                                <li>Versionierte Unterrichtsmaterialien</li>
+                            </ul>
+                        </div>
+                        <div class="recommendation-info">
+                            <h5>⭐ BBW-Spezial</h5>
+                            <p>Die BBW ist als Organisation registriert! Lehrpersonen können der Organisation beitreten und erweiterte Features nutzen.</p>
+                        </div>
+                        <a href="https://github.com" target="_blank" class="tool-link">
+                            Zu GitHub →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Landbot.io -->
+            <div class="tool-card">
+                <span class="bbw-badge">1 BBW-Lizenz</span>
+                <div class="tool-header">
+                    <div class="tool-icon">💬</div>
+                    <h3 class="tool-name">Landbot.io</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Chatbot-Erstellung</span>
+                        <span class="tool-function">Dialogbasiertes Lernen</span>
+                        <span class="tool-function">Interaktive Flows</span>
+                        <span class="tool-function">No-Code</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Chatbot ohne KI für strukturierte Lernprozesse - visueller Bot-Builder ohne Programmierung.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Gratisangebot + BBW-Einzellizenz</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Per Bot-Link</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>BBW-Lizenz</h4>
+                        <ul>
+                            <li>1 Einzellizenz verfügbar</li>
+                            <li>Für größere Projekte</li>
+                            <li>PIKT-Team hilft</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Funktionen</h4>
+                            <ul>
+                                <li>Drag-and-Drop Bot-Builder</li>
+                                <li>Verzweigte Dialogpfade</li>
+                                <li>Multimedia-Integration</li>
+                                <li>Quiz und Umfragen</li>
+                                <li>Lernfortschritt-Tracking</li>
+                                <li>Export der Gesprächsdaten</li>
+                                <li>Keine Programmierkenntnisse nötig</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Lernszenarien</h4>
+                            <ul>
+                                <li>Strukturierte Lernpfade</li>
+                                <li>Interaktive Tutorials</li>
+                                <li>FAQ-Bots für Klassen</li>
+                                <li>Entscheidungsbäume</li>
+                                <li>Selbstgesteuertes Lernen</li>
+                            </ul>
+                        </div>
+                        <div class="recommendation-info">
+                            <h5>⭐ BBW-Support</h5>
+                            <p>PIKT-Team kann bei größeren Bot-Projekten mit der BBW-Lizenz unterstützen. Kleine Bots funktionieren auch mit der Gratisversion.</p>
+                        </div>
+                        <a href="https://landbot.io" target="_blank" class="tool-link">
+                            Zu Landbot →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prezi -->
+            <div class="tool-card">
+                <span class="type-badge">Gratis-Basis</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🎯</div>
+                    <h3 class="tool-name">Prezi</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">Präsentationen</span>
+                        <span class="tool-function">KI-Integration</span>
+                        <span class="tool-function">Infografiken</span>
+                        <span class="tool-function">Zoom-Effekte</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Dynamische Präsentationen mit Zoom-Effekten und KI-Unterstützung - Alternative zu PowerPoint.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Gratisangebot verfügbar</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Gratisangebot verfügbar</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>Kostenlose Version</h4>
+                        <ul>
+                            <li>Grundfunktionen</li>
+                            <li>Mit Prezi-Branding</li>
+                            <li>Online-Speicherung</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Features</h4>
+                            <ul>
+                                <li>Nicht-lineare Präsentationsstruktur</li>
+                                <li>KI-gestützte Design-Vorschläge</li>
+                                <li>Dynamische Zoom-Effekte</li>
+                                <li>Interaktive Infografiken</li>
+                                <li>Video-Integration</li>
+                                <li>Kollaborative Bearbeitung</li>
+                                <li>Vorlagen für verschiedene Themen</li>
+                                <li>Mobile Präsentation möglich</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Vorteile gegenüber PowerPoint</h4>
+                            <ul>
+                                <li>Visuell ansprechender</li>
+                                <li>Bessere Übersicht durch Zoom</li>
+                                <li>Moderne Präsentationstechnik</li>
+                                <li>Aufmerksamkeit der Zuhörer</li>
+                                <li>Cloud-basiert</li>
+                            </ul>
+                        </div>
+                        <a href="https://prezi.com" target="_blank" class="tool-link">
+                            Zu Prezi →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ChatGPT -->
+            <div class="tool-card">
+                <span class="ai-badge">KI-Tool</span>
+                <div class="tool-header">
+                    <div class="tool-icon">🤖</div>
+                    <h3 class="tool-name">ChatGPT</h3>
+                    <div class="tool-functions">
+                        <span class="tool-function">KI-Assistenz</span>
+                        <span class="tool-function">Textgenerierung</span>
+                        <span class="tool-function">Programmierung</span>
+                        <span class="tool-function">Recherche</span>
+                    </div>
+                </div>
+                <div class="tool-body">
+                    <p class="tool-description">Der bekannteste KI-Assistent - empfohlen: Plus-Version für einen Monat testen.</p>
+                    <div class="tool-access">
+                        <div class="access-item">
+                            <span class="access-icon">👨‍🏫</span>
+                            <span>Lehrpersonen: Gratisversion verfügbar</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-icon">👥</span>
+                            <span>Lernende: Gratisversion verfügbar</span>
+                        </div>
+                    </div>
+                    <div class="pricing-info">
+                        <h4>Versionen</h4>
+                        <ul>
+                            <li>Gratis: GPT-3.5</li>
+                            <li>Plus: GPT-4 (~20 USD/Monat)</li>
+                            <li>Plus empfohlen!</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Mehr Details
+                    </button>
+                    <div class="tool-expanded">
+                        <div class="detail-section">
+                            <h4>Gratisversion (GPT-3.5)</h4>
+                            <ul>
+                                <li>Basis KI-Funktionen</li>
+                                <li>Textgenerierung</li>
+                                <li>Einfache Programmierung</li>
+                                <li>Begrenzte Verfügbarkeit</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Plus-Version (GPT-4) - Empfohlen!</h4>
+                            <ul>
+                                <li>Deutlich intelligentere Antworten</li>
+                                <li>DALL-E 3 Bildgenerierung</li>
+                                <li>Code Interpreter für Datenanalyse</li>
+                                <li>Erweiterte Plugins</li>
+                                <li>Prioritätszugang bei hoher Auslastung</li>
+                                <li>Längere Kontextfenster</li>
+                            </ul>
+                        </div>
+                        <div class="recommendation-info">
+                            <h5>⭐ BBW-Empfehlung</h5>
+                            <p>Testen Sie die Plus-Version für einen Monat (ca. 20 USD) auf eigene Kosten. Der Unterschied zur Gratisversion ist erheblich und lohnt sich für Unterrichtsvorbereitung!</p>
+                        </div>
+                        <a href="https://chat.openai.com" target="_blank" class="tool-link">
+                            Zu ChatGPT →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const expandedDiv = btn.nextElementSibling;
+            const isExpanded = expandedDiv.classList.contains('show');
+            
+            // Close all other expanded sections
+            document.querySelectorAll('.tool-expanded.show').forEach(div => {
+                div.classList.remove('show');
+                div.previousElementSibling.classList.remove('expanded');
+            });
+            
+            // Toggle current section
+            if (!isExpanded) {
+                expandedDiv.classList.add('show');
+                btn.classList.add('expanded');
+            }
+        }
+
+        // Initialize animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
