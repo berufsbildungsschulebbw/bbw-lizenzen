@@ -1,1 +1,813 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support & PIKT-Team - BBW Lerntechnologie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --support: #ef4444;
+            --support-light: #f87171;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ede9fe, #fce7f3, #ddd6fe);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #fecaca, #f87171);
+            color: var(--support);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #6b7280;
+        }
+
+        /* Team Introduction */
+        .team-intro {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .team-intro h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .intro-text {
+            color: #6b7280;
+            line-height: 1.7;
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .team-photo {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .team-photo-placeholder {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 60px;
+            background: white;
+            border-radius: 10px;
+            border: 2px dashed #cbd5e1;
+        }
+
+        .team-photo-placeholder span {
+            font-size: 3em;
+        }
+
+        .team-photo-text {
+            text-align: left;
+        }
+
+        .team-photo-text h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .team-photo-text p {
+            color: #6b7280;
+        }
+
+        /* Main Tasks */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .task-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .task-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .task-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .task-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .task-details {
+            background: #f9fafb;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .task-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-details li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .task-details li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Team Members */
+        .team-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-title {
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .team-subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .member-card {
+            background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .member-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .member-info h4 {
+            font-size: 1.2em;
+            color: var(--dark);
+            margin-bottom: 3px;
+        }
+
+        .member-role {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .member-tools {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .member-tools h5 {
+            font-size: 0.95em;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tool-tag {
+            padding: 4px 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+
+        /* Innovation Section */
+        .innovation-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .innovation-title {
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .innovation-card {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .innovation-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .innovation-card h3 {
+            font-size: 1.5em;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .innovation-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .innovation-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--success);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .innovation-button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-bar">
+                <a href="../index.html" class="back-button">
+                    ← Zurück zur Übersicht
+                </a>
+                <div class="category-badge">
+                    🚀 Support & Hilfe
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>Support & PIKT-Team</h1>
+                <p>Ihre Ansprechpartner für den pädagogisch-didaktischen Einsatz von digitalen Lerntechnologien</p>
+            </div>
+        </div>
+
+        <!-- Team Introduction -->
+        <div class="team-intro">
+            <h2>Das PIKT-Team der BBW</h2>
+            <p class="intro-text">
+                Das PIKT-Team (Pädagogische ICT-Koordination) unterstützt Sie beim erfolgreichen Einsatz digitaler Technologien im Unterricht. 
+                Wir bieten Direktsupport, Weiterbildungen und fördern Innovation im Bereich der digitalen Bildung.
+            </p>
+            
+            <div class="team-photo">
+                <div class="team-photo-placeholder">
+                    <span>👥</span>
+                    <div class="team-photo-text">
+                        <h3>PIKT & TIKT Team</h3>
+                        <p>Platzhalter für Teamfoto<br>
+                        PIKT: Pädagogischer Support<br>
+                        TIKT: Technischer Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Tasks -->
+        <div class="tasks-grid">
+            <!-- Direktsupport -->
+            <div class="task-card">
+                <div class="task-icon">💬</div>
+                <h3>Direktsupport</h3>
+                <p>Individuelle Unterstützung beim pädagogisch-didaktischen Einsatz von IKT und lizenzierten Lerntechnologien.</p>
+                <div class="task-details">
+                    <ul>
+                        <li>Beratung zu Tool-Auswahl</li>
+                        <li>Unterrichtsintegration</li>
+                        <li>Problemlösung vor Ort</li>
+                        <li>Best Practice Sharing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Weiterbildung -->
+            <div class="task-card">
+                <div class="task-icon">🎓</div>
+                <h3>Weiterbildung</h3>
+                <p>Durchdachtes Weiterbildungsprogramm über das ganze Schuljahr mit praxisnahen Workshops und Schulungen.</p>
+                <div class="task-details">
+                    <ul>
+                        <li>Tool-Einführungen</li>
+                        <li>Didaktische Workshops</li>
+                        <li>Hands-on Trainings</li>
+                        <li>Zertifikatskurse</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Entwicklung & Innovation -->
+            <div class="task-card">
+                <div class="task-icon">🚀</div>
+                <h3>Entwicklung & Innovation</h3>
+                <p>Evaluation neuer Technologien und Anpassung innovativer Angebote für die BBW.</p>
+                <div class="task-details">
+                    <ul>
+                        <li>Tool-Evaluation</li>
+                        <li>Pilotprojekte</li>
+                        <li>Antragsunterstützung</li>
+                        <li>Zukunftskonzepte</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Vernetzung -->
+            <div class="task-card">
+                <div class="task-icon">🌐</div>
+                <h3>Vernetzung</h3>
+                <p>Förderung des Austauschs zwischen Lehrpersonen innerhalb der BBW und schulübergreifend.</p>
+                <div class="task-details">
+                    <ul>
+                        <li>Fachgruppen-Austausch</li>
+                        <li>Schulübergreifende Projekte</li>
+                        <li>Community Building</li>
+                        <li>Wissenstransfer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Innovation Programs -->
+        <div class="innovation-section">
+            <h2 class="innovation-title">🌟 Innovationsprogramme</h2>
+            <div class="innovation-grid">
+                <div class="innovation-card">
+                    <div class="innovation-icon">🏊‍♂️</div>
+                    <h3>Projektpool</h3>
+                    <p>Internes Angebot der BBW zum Ausprobieren neuer Lerntechnologien im Unterricht. Erhalten Sie Unterstützung und Ressourcen für innovative Projekte.</p>
+                    <a href="#" class="innovation-button">
+                        Mehr erfahren →
+                    </a>
+                </div>
+                
+                <div class="innovation-card">
+                    <div class="innovation-icon">💡</div>
+                    <h3>DLH Innovationsfonds</h3>
+                    <p>Externes Förderprogramm für innovative Bildungsprojekte. Das PIKT-Team unterstützt Sie bei der Antragstellung.</p>
+                    <a href="#" class="innovation-button">
+                        Mehr erfahren →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Members -->
+        <div class="team-section">
+            <h2 class="team-title">👨‍🏫 Ihre Ansprechpersonen</h2>
+            <p class="team-subtitle">Finden Sie die richtige Person für Ihre Tool-spezifischen Fragen</p>
+            
+            <div class="members-grid">
+                <!-- Christof Glaus -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">CG</div>
+                        <div class="member-info">
+                            <h4>Christof Glaus</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">OLAT</span>
+                            <span class="tool-tag">Teams-Aufgaben</span>
+                            <span class="tool-tag">KI-Tools</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pietro Rossi -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">PR</div>
+                        <div class="member-info">
+                            <h4>Pietro Rossi</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">OLAT</span>
+                            <span class="tool-tag">Teams-Aufgaben</span>
+                            <span class="tool-tag">KI-Tools</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ursula Bosshardt -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">UB</div>
+                        <div class="member-info">
+                            <h4>Ursula Bosshardt</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">OLAT</span>
+                            <span class="tool-tag">FelloFish</span>
+                            <span class="tool-tag">Podcastanlage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Markus Roffler -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">MR</div>
+                        <div class="member-info">
+                            <h4>Markus Roffler</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Actionbound</span>
+                            <span class="tool-tag">Quizlet</span>
+                            <span class="tool-tag">3D-Drucker</span>
+                            <span class="tool-tag">Adobe CC</span>
+                            <span class="tool-tag">FelloFish</span>
+                            <span class="tool-tag">Microsoft</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Peter Rutschmann -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">PRu</div>
+                        <div class="member-info">
+                            <h4>Peter Rutschmann</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Microsoft 365</span>
+                            <span class="tool-tag">GitHub</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roland Kessler -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">RK</div>
+                        <div class="member-info">
+                            <h4>Roland Kessler</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Fobizz</span>
+                            <span class="tool-tag">KI-Tools</span>
+                            <span class="tool-tag">Microsoft 365</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Andreas Spielmann -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">AS</div>
+                        <div class="member-info">
+                            <h4>Andreas Spielmann</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">3D-Drucker</span>
+                            <span class="tool-tag">Microsoft 365</span>
+                            <span class="tool-tag">Adobe CC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- David Frech -->
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar">DF</div>
+                        <div class="member-info">
+                            <h4>David Frech</h4>
+                            <span class="member-role">PIKT-Team</span>
+                        </div>
+                    </div>
+                    <div class="member-tools">
+                        <h5>Spezialisiert auf:</h5>
+                        <div class="tool-tags">
+                            <span class="tool-tag">OLAT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2 class="contact-title">📞 Kontakt aufnehmen</h2>
+            <p style="color: #78350f; margin-bottom: 20px;">
+                Haben Sie Fragen oder benötigen Unterstützung? Wir sind für Sie da!
+            </p>
+            <div class="contact-buttons">
+                <a href="mailto:pikt@bbw.ch" class="contact-button">
+                    📧 PIKT-Team kontaktieren
+                </a>
+                <a href="mailto:tikt@bbw.ch" class="contact-button">
+                    💻 TIKT-Support (Technik)
+                </a>
+                <a href="#" class="contact-button">
+                    📚 SharePoint Ressourcen
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
