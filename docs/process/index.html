@@ -1,1 +1,757 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beschaffungsprozess - BBW Lerntechnologie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --process: #f59e0b;
+            --process-light: #fbbf24;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ede9fe, #fce7f3, #ddd6fe);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #fed7aa, #fb923c);
+            color: var(--process);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #6b7280;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .timeline-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .timeline-step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 35px;
+            top: 70px;
+            width: 2px;
+            height: calc(100% - 40px);
+            background: linear-gradient(to bottom, var(--warning), var(--warning-light));
+            opacity: 0.3;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--warning), var(--process-light));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            padding-top: 15px;
+        }
+
+        .step-content h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .step-content p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .step-details {
+            background: #fef3c7;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .step-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-details li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #78350f;
+            line-height: 1.5;
+        }
+
+        .step-details li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--warning);
+            font-weight: bold;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--warning), var(--process-light));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .info-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .criteria-list {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .criteria-list h4 {
+            font-size: 1.1em;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .criteria-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .criteria-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .criteria-text {
+            flex: 1;
+        }
+
+        .criteria-text h5 {
+            font-size: 1em;
+            margin-bottom: 3px;
+            color: var(--dark);
+        }
+
+        .criteria-text p {
+            font-size: 0.9em;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .contact-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .contact-card p {
+            color: #6b7280;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-answer {
+            color: #6b7280;
+            line-height: 1.6;
+            padding-left: 30px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .timeline-step {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .timeline-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-bar">
+                <a href="../index.html" class="back-button">
+                    ← Zurück zur Übersicht
+                </a>
+                <div class="category-badge">
+                    📝 Beschaffungsprozess
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>Fehlende Lizenzen & Beschaffung</h1>
+                <p>Strukturierter Prozess für die Anfrage und Bewertung neuer digitaler Tools</p>
+            </div>
+        </div>
+
+        <!-- Process Timeline -->
+        <div class="process-timeline">
+            <h2 class="timeline-title">🔄 Der Beschaffungsprozess</h2>
+            
+            <div class="timeline-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Anfrage stellen</h3>
+                    <p>Sie haben ein Tool entdeckt, das für Ihren Unterricht wertvoll wäre? Starten Sie den Prozess mit einer strukturierten Anfrage.</p>
+                    <div class="step-details">
+                        <ul>
+                            <li>Kontaktieren Sie das PIKT-Team per E-Mail</li>
+                            <li>Beschreiben Sie den pädagogischen Mehrwert</li>
+                            <li>Nennen Sie die geplanten Einsatzszenarien</li>
+                            <li>Geben Sie die Anzahl der benötigten Lizenzen an</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Prüfung bestehender Alternativen</h3>
+                    <p>Das PIKT-Team prüft, ob bereits lizenzierte Tools mit ähnlichen Funktionen vorhanden sind.</p>
+                    <div class="step-details">
+                        <ul>
+                            <li>Abgleich mit vorhandenen Schullizenzen</li>
+                            <li>Funktionsvergleich mit bestehenden Tools</li>
+                            <li>Prüfung kostenloser Alternativen</li>
+                            <li>Dokumentation der Ergebnisse</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Machbarkeitsanalyse</h3>
+                    <p>Falls keine Alternative vorhanden ist, erfolgt eine detaillierte Prüfung der Anschaffung.</p>
+                    <div class="step-details">
+                        <ul>
+                            <li>Kostenanalyse (Einzel- vs. Schullizenz)</li>
+                            <li>Datenschutz-Compliance prüfen</li>
+                            <li>Technische Kompatibilität sicherstellen</li>
+                            <li>Support-Aufwand bewerten</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Entscheidung Steuergruppe</h3>
+                    <p>Die PIKT-Steuergruppe trifft die finale Entscheidung basierend auf definierten Kriterien.</p>
+                    <div class="step-details">
+                        <ul>
+                            <li>Präsentation der Analyseergebnisse</li>
+                            <li>Abstimmung in der Steuergruppe</li>
+                            <li>Information der Schulleitung</li>
+                            <li>Kommunikation der Entscheidung</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Umsetzung</h3>
+                    <p>Je nach Entscheidung erfolgt die Beschaffung oder es werden Alternativen vorgeschlagen.</p>
+                    <div class="step-details">
+                        <ul>
+                            <li><strong>Bei Zusage:</strong> Beschaffung, Einrichtung und Schulung</li>
+                            <li><strong>Bei Ablehnung:</strong> Alternativen-Vorschlag und Support</li>
+                            <li>Dokumentation im Tool-Katalog</li>
+                            <li>Information aller Beteiligten</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-grid">
+            <!-- Evaluation Criteria -->
+            <div class="info-card">
+                <div class="info-icon">✅</div>
+                <h3>Bewertungskriterien</h3>
+                <p>Jedes Tool wird nach klaren Kriterien bewertet, um Qualität und Nachhaltigkeit sicherzustellen.</p>
+                
+                <div class="criteria-list">
+                    <h4>Hauptkriterien</h4>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">1</div>
+                        <div class="criteria-text">
+                            <h5>Pädagogischer Mehrwert</h5>
+                            <p>Klarer Nutzen für Lehren und Lernen</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">2</div>
+                        <div class="criteria-text">
+                            <h5>Datenschutz & Sicherheit</h5>
+                            <p>Schweizer Datenschutz-Compliance</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">3</div>
+                        <div class="criteria-text">
+                            <h5>Kosten-Nutzen-Verhältnis</h5>
+                            <p>Wirtschaftlich sinnvolle Investition</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">4</div>
+                        <div class="criteria-text">
+                            <h5>Integration</h5>
+                            <p>Kompatibilität mit OLAT und M365</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">5</div>
+                        <div class="criteria-text">
+                            <h5>Nachhaltigkeit</h5>
+                            <p>Langfristige Verfügbarkeit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="info-card">
+                <div class="info-icon">💡</div>
+                <h3>Tipps für Ihre Anfrage</h3>
+                <p>So erhöhen Sie die Chancen auf eine positive Entscheidung für Ihr gewünschtes Tool.</p>
+                
+                <div class="criteria-list">
+                    <h4>Erfolgreiche Anträge</h4>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">✓</div>
+                        <div class="criteria-text">
+                            <h5>Konkrete Unterrichtsbeispiele</h5>
+                            <p>Zeigen Sie spezifische Einsatzszenarien</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">✓</div>
+                        <div class="criteria-text">
+                            <h5>Mehrere Nutzer</h5>
+                            <p>Tools für Teams haben höhere Priorität</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">✓</div>
+                        <div class="criteria-text">
+                            <h5>Pilotprojekt anbieten</h5>
+                            <p>Testen mit Gratisversion zeigt Engagement</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">✓</div>
+                        <div class="criteria-text">
+                            <h5>Alternativen erwähnen</h5>
+                            <p>Zeigen Sie, dass Sie recherchiert haben</p>
+                        </div>
+                    </div>
+                    
+                    <div class="criteria-item">
+                        <div class="criteria-icon">✓</div>
+                        <div class="criteria-text">
+                            <h5>Frühzeitig anfragen</h5>
+                            <p>Planen Sie 4-6 Wochen Vorlaufzeit ein</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2 class="faq-title">❓ Häufige Fragen</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🤔</span>
+                    <span>Wie lange dauert der Beschaffungsprozess?</span>
+                </div>
+                <div class="faq-answer">
+                    In der Regel dauert der gesamte Prozess 4-6 Wochen. Bei dringenden Anfragen kann eine Expressbehandlung angefragt werden, dies ist jedoch die Ausnahme.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🤔</span>
+                    <span>Kann ich ein Tool erst testen, bevor es angeschafft wird?</span>
+                </div>
+                <div class="faq-answer">
+                    Ja, das ist sogar erwünscht! Nutzen Sie Gratisversionen oder Testaccounts und dokumentieren Sie Ihre Erfahrungen. Dies unterstützt den Entscheidungsprozess erheblich.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🤔</span>
+                    <span>Was passiert, wenn mein Antrag abgelehnt wird?</span>
+                </div>
+                <div class="faq-answer">
+                    Das PIKT-Team unterstützt Sie bei der Suche nach Alternativen. Oft können ähnliche Funktionen mit bereits lizenzierten Tools erreicht werden. Wir zeigen Ihnen gerne, wie.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🤔</span>
+                    <span>Werden auch kostenlose Tools geprüft?</span>
+                </div>
+                <div class="faq-answer">
+                    Ja, auch kostenlose Tools müssen den Datenschutzrichtlinien entsprechen und technisch kompatibel sein. Die Prüfung ist aber meist schneller.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🤔</span>
+                    <span>Kann ich Tools auf eigene Kosten nutzen?</span>
+                </div>
+                <div class="faq-answer">
+                    Für den privaten Gebrauch ja. Für den Unterrichtseinsatz mit Schülerdaten muss das Tool trotzdem geprüft werden (Datenschutz). Sprechen Sie mit dem PIKT-Team.
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2 class="contact-title">📞 Ihre Ansprechpartner</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">👨‍🏫</div>
+                    <h4>PIKT-Team</h4>
+                    <p>Pädagogische ICT-Koordination für alle Fragen zu digitalen Tools im Unterricht</p>
+                    <a href="mailto:pikt@bbw.ch" class="contact-button">
+                        E-Mail senden →
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">💻</div>
+                    <h4>IT-Support</h4>
+                    <p>Technische Unterstützung bei Installation und Konfiguration</p>
+                    <a href="mailto:it-support@bbw.ch" class="contact-button">
+                        E-Mail senden →
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📚</div>
+                    <h4>SharePoint</h4>
+                    <p>Dokumentation, Anleitungen und Ressourcen im BBW SharePoint</p>
+                    <a href="#" class="contact-button">
+                        Zu SharePoint →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
